@@ -1,6 +1,7 @@
 ---
 name: Deploy to GitHub Pages
 on:
+  workflow_dispatch:
   push:
     paths:
       - "docs/**"
@@ -14,6 +15,7 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
+          cache-dependency-path: docs/yarn.lock
       - name: Install dependencies and build
         run: cd docs && yarn install --frozen-lockfile && yarn build
       - name: Deploy to GitHub Pages
@@ -22,3 +24,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: docs
           publish_dir: ./docs/build
+          destination_dir: docs

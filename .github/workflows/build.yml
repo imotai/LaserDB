@@ -1,10 +1,15 @@
 ---
 name: Build and test
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
+    paths-ignore:
+      - "docs/**"
+      - "demo/**"
+      - "tools/**"
+      - ".github/**"
 
 jobs:
   target:
@@ -31,4 +36,3 @@ jobs:
         run: |
           sudo apt-get install gperf -y
           bazel build //:release-tars
-
